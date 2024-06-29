@@ -1,4 +1,3 @@
-import { UNSTABLE_REVALIDATE_RENAME_ERROR } from 'next/dist/lib/constants';
 import * as z from 'zod';
 
 export const ClerkRegister = z.object ({
