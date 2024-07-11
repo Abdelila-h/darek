@@ -1,4 +1,5 @@
 import { Document, Schema, model, models } from "mongoose";
+import mongoose from "mongoose";
 
 export interface IDar extends Document {
   _id: string;
@@ -7,12 +8,11 @@ export interface IDar extends Document {
   location?: string;
   createdAt: Date;
   imageUrl: string;
-  freeDateTime: Date;
-  freebisDateTime: Date;
+  freeDateTime: Date | null;
   price: string;
   url?: string;
   category: { _id: string, name: string }
-  owner: { _id: string, firstName: string, lastName: string }
+  user: { _id: string, firstName: string, lastName: string, clerkId: string }
 }
 
 const DarSchema = new Schema({
@@ -20,13 +20,12 @@ const DarSchema = new Schema({
   description: { type: String },
   location: { type: String },
   createdAt: { type: Date, default: Date.now },
-  imageUrl: { type: String, required: true },
+  imageUrl: { type: String },
   freeDateTime: { type: Date, default: Date.now },
-  freebisDateTime: { type: Date, default: Date.now },
   price: { type: String },
   url: { type: String },
-  category: { type: Schema.Types.ObjectId, ref: 'Category' },
-  owner: { type: Schema.Types.ObjectId, ref: 'User' },
+  category: { type: Schema.Types.ObjectId, ref: 'Category', set: (v: string) => new mongoose.Types.ObjectId(v)},
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
 })
 
 const Dar = models.Dar || model('Dar', DarSchema);

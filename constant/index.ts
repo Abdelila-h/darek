@@ -12,3 +12,15 @@ export const headerLinks = [
         route: '/profile',
     },
 ]
+
+export const darDefaultValues = {
+    title: '',
+    description: '',
+    location: '',
+    imageUrl: '',
+    startDateTime: new Date(),
+    endDateTime: new Date(),
+    categoryId: '',
+    price: '',
+    url: '',
+  }
