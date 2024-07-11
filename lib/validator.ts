@@ -7,7 +7,7 @@ export const darFormSchema = z.object({
     location: z.string().min(2, "Location must be at least 2 characters.").
                          max(200, "Location must be less than 200 characters."),
     imageUrl: z.string(),
-    freeDateTime: z.date().nullable(),
+    freeDateTime: z.union([z.date(), z.null()]),
     categoryId: z.string(),
     price: z.string(),
     url: z.string().url()

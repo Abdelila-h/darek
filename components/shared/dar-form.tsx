@@ -4,7 +4,15 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { darFormSchema } from "@/lib/validator";
 import { darDefaultValues } from "@/constant";
@@ -14,9 +22,9 @@ import { useState } from "react";
 import ImageUploader from "./image-uploader";
 import { FileUploader } from "./FileUploader";
 import Image from "next/image";
-import DatePicker from 'react-datepicker'
-import "react-datepicker/dist/react-datepicker.css"
-import { useUploadThing } from '@/lib/uploadthing'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useUploadThing } from "@/lib/uploadthing";
 import { useRouter } from "next/navigation";
 import { createDar, updateDar } from "@/lib/actions/dar.actions";
 import { IDar } from "@/lib/database/models/dar.model";
@@ -24,16 +32,19 @@ import { IDar } from "@/lib/database/models/dar.model";
 type DarFormProps = {
   userId: string;
   type: "Create" | "Update";
-  dar?: IDar,
-  darId?: string
+  dar?: IDar;
+  darId?: string;
 };
 
 const DarForm = ({ userId, type, dar, darId }: DarFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
-  const initialValues = dar && type === 'Update' ? {...dar, freeDateTime: new Date(dar.freeDateTime)} : darDefaultValues;
+  const initialValues =
+    dar && type === "Update"
+      ? { ...dar, freeDateTime: dar.freeDateTime }
+      : darDefaultValues;
   const router = useRouter();
 
-  const { startUpload } = useUploadThing('imageUploader');
+  const { startUpload } = useUploadThing("imageUploader");
   // 1. Define your form.
   const form = useForm<z.infer<typeof darFormSchema>>({
     resolver: zodResolver(darFormSchema),
@@ -49,49 +60,49 @@ const DarForm = ({ userId, type, dar, darId }: DarFormProps) => {
       if (!uploadedImages) {
         return;
       }
-      
+
       uploadedImageUrl = uploadedImages[0].url;
     }
 
-    if(type === 'Create') {
+    if (type === "Create") {
       try {
         const newDar = await createDar({
-          dar: { ...values, imageUrl: uploadedImageUrl},
+          dar: { ...values, imageUrl: uploadedImageUrl },
           userId,
-          path: '/profile'
-        })
-        
+          path: "/profile",
+        });
+
         if (newDar) {
           form.reset();
-          router.push(`/dars/${newDar._id}`)
+          router.push(`/dars/${newDar._id}`);
         }
       } catch (error) {
         console.log(error);
       }
     }
 
-    if(type === 'Update') {
+    if (type === "Update") {
       if (!darId) {
-        router.back()
+        router.back();
         return;
       }
 
       try {
         const updatedDar = await updateDar({
           userId,
-          dar: { ...values, imageUrl: uploadedImageUrl, _id: darId},
-          path: `/dar/${darId}`
-        })
-        
+          dar: { ...values, imageUrl: uploadedImageUrl, _id: darId },
+          path: `/dar/${darId}`,
+        });
+
         if (updatedDar) {
           form.reset();
-          router.push(`/dars/${updatedDar._id}`)
+          router.push(`/dars/${updatedDar._id}`);
         }
       } catch (error) {
         console.log(error);
       }
     }
-    
+
     console.log(values);
   }
 
@@ -169,19 +180,24 @@ const DarForm = ({ userId, type, dar, darId }: DarFormProps) => {
           />
         </div>
         <div className="flex flex-col gap-5 md:flex-row">
-        <FormField
+          <FormField
             control={form.control}
             name="location"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                    <Image src="/icons/location.svg" alt="location" width={24} height={24} />
+                    <Image
+                      src="/icons/location.svg"
+                      alt="location"
+                      width={24}
+                      height={24}
+                    />
                     <Input
-                    placeholder="Fin Jaya Dar?"
-                    {...field}
-                    className="bg-gray-50 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 rounded-full p-regular-16 px-4 py-3 border-none focus-visible:ring-transparent !important"
-                  />
+                      placeholder="Fin Jaya Dar?"
+                      {...field}
+                      className="bg-gray-50 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 rounded-full p-regular-16 px-4 py-3 border-none focus-visible:ring-transparent !important"
+                    />
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -190,19 +206,28 @@ const DarForm = ({ userId, type, dar, darId }: DarFormProps) => {
           />
         </div>
         <div className="flex flex-col gap-5 md:flex-row">
-        <FormField
+          <FormField
             control={form.control}
             name="freeDateTime"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                    <Image src="/icons/calendar.svg" alt="calendar" width={24} height={24} />
-                    <p className="ml-3 whitespace-nowrap text-gray-400">Mn Fou9ash dar Khawya?</p>
-                    <DatePicker selected={field.value} 
-                                onChange={(date: Date | null) => field.onChange(date)} 
-                                dateFormat="dd/MM/yyyy"
-                                className="bg-transparent"/>
+                    <Image
+                      src="/icons/calendar.svg"
+                      alt="calendar"
+                      width={24}
+                      height={24}
+                    />
+                    <p className="ml-3 whitespace-nowrap text-gray-400">
+                      Mn Fou9ash dar Khawya?
+                    </p>
+                    <DatePicker
+                      selected={field.value}
+                      onChange={(date: Date | null) => field.onChange(date)}
+                      dateFormat="dd/MM/yyyy"
+                      className="bg-transparent"
+                    />
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -216,13 +241,18 @@ const DarForm = ({ userId, type, dar, darId }: DarFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                    <Image src="/icons/price.svg" alt="price" width={24} height={24} />
+                    <Image
+                      src="/icons/price.svg"
+                      alt="price"
+                      width={24}
+                      height={24}
+                    />
                     <Input
-                    type="number"
-                    placeholder="Taman"
-                    {...field}
-                    className="bg-gray-50 border-0 outline-offset-0 p-regular-16 px-4 py-3 border-none focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-                  />
+                      type="number"
+                      placeholder="Taman"
+                      {...field}
+                      className="bg-gray-50 border-0 outline-offset-0 p-regular-16 px-4 py-3 border-none focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                    />
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -236,12 +266,17 @@ const DarForm = ({ userId, type, dar, darId }: DarFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                    <Image src="/icons/url.svg" alt="url" width={24} height={24} />
+                    <Image
+                      src="/icons/url.svg"
+                      alt="url"
+                      width={24}
+                      height={24}
+                    />
                     <Input
-                    placeholder="URL"
-                    {...field}
-                    className="bg-gray-50 border-0 outline-offset-0 p-regular-16 px-4 py-3 border-none focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-                  />
+                      placeholder="URL"
+                      {...field}
+                      className="bg-gray-50 border-0 outline-offset-0 p-regular-16 px-4 py-3 border-none focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                    />
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -249,8 +284,14 @@ const DarForm = ({ userId, type, dar, darId }: DarFormProps) => {
             )}
           />
         </div>
-        <Button type="submit" size="lg" disabled={form.formState.isSubmitting} className="rounded-full h-[54px] p-regular-16 col-span-2 w-full">
-          {form.formState.isSubmitting ? ('Submitting...') : `${type} DAR` }</Button>
+        <Button
+          type="submit"
+          size="lg"
+          disabled={form.formState.isSubmitting}
+          className="rounded-full h-[54px] p-regular-16 col-span-2 w-full"
+        >
+          {form.formState.isSubmitting ? "Submitting..." : `${type} DAR`}
+        </Button>
       </form>
     </Form>
   );

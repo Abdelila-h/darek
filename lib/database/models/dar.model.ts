@@ -21,7 +21,7 @@ const DarSchema = new Schema({
   location: { type: String },
   createdAt: { type: Date, default: Date.now },
   imageUrl: { type: String },
-  freeDateTime: { type: Date, default: Date.now },
+  freeDateTime: { type: Schema.Types.Mixed, default: Date.now },
   price: { type: String },
   url: { type: String },
   category: { type: Schema.Types.ObjectId, ref: 'Category', set: (v: string) => new mongoose.Types.ObjectId(v)},
