@@ -19,12 +19,12 @@ type DropDownProps = {
 };
 
 const DropDown = ({ onChangeHandler, value }: DropDownProps) => {
-  const categories: ICategory[] = [
+  const categories = [
     { _id: "65840b5b26f5b7b3d8d29103", name: "Studio" },
     { _id: "65840b5b26f5b7b3d8d29104", name: "Appartement" },
     { _id: "65840b5b26f5b7b3d8d29105", name: "Dar" },
     { _id: "65840b5b26f5b7b3d8d29106", name: "Villa" },
-  ];
+  ] as ICategory[];
 
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
