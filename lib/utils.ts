@@ -13,7 +13,7 @@ export const handleError = (error: unknown) => {
 
 export const convertFileToUrl = (file: File) => URL.createObjectURL(file)
 
-export const formatDateTime = (dateString: Date | null) => {
+export const formatDateTime = (dateString: string | number | Date) => {
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
     weekday: 'short', // abbreviated weekday name (e.g., 'Mon')
     month: 'short', // abbreviated month name (e.g., 'Oct')
