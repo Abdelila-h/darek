@@ -33,7 +33,6 @@ model Dar {
   title             String?
   price             String
   description       String?
-  createdAt         DateTime?
   imageUrl          String
   location          String?
   category          String

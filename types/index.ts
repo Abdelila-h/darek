@@ -21,7 +21,6 @@ export type createDarParams = {
     description: string
     location: string
     imageUrl: string
-    freeDateTime: Date | null
     categoryId: string
     price: string
     url: string
@@ -37,7 +36,6 @@ export type UpdateDarParams = {
     imageUrl: string
     description: string
     location: string
-    freeDateTime: Date | null
     categoryId: string
     price: string
     url: string

@@ -40,7 +40,7 @@ const DarForm = ({ userId, type, dar, darId }: DarFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const initialValues =
     dar && type === "Update"
-      ? { ...dar, freeDateTime: dar.freeDateTime }
+      ? { ...dar }
       : darDefaultValues;
   const router = useRouter();
 
@@ -206,34 +206,6 @@ const DarForm = ({ userId, type, dar, darId }: DarFormProps) => {
           />
         </div>
         <div className="flex flex-col gap-5 md:flex-row">
-          <FormField
-            control={form.control}
-            name="freeDateTime"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                    <Image
-                      src="/icons/calendar.svg"
-                      alt="calendar"
-                      width={24}
-                      height={24}
-                    />
-                    <p className="ml-3 whitespace-nowrap text-gray-400">
-                      Mn Fou9ash dar Khawya?
-                    </p>
-                    <DatePicker
-                      selected={field.value}
-                      onChange={(date: Date | null) => field.onChange(date)}
-                      dateFormat="dd/MM/yyyy"
-                      className="bg-transparent"
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <FormField
             control={form.control}
             name="price"

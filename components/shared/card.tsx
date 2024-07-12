@@ -1,7 +1,6 @@
 "use client";
 
 import { IDar } from "@/lib/database/models/dar.model";
-import { formatDateTime } from "@/lib/utils";
 import Link from "next/link";
 import { useAuth  } from '@clerk/nextjs'
 import Image from "next/image";
@@ -37,7 +36,6 @@ const Card = ({ dar }: CardProps) => {
                     <span className="p-semibold-14 w-min rounded-full bg-green-100 px-4 py-1 text-green-60">{dar.price}</span>
                     <p className="p-semibold-14 rounded-full w-min bg-gray-500/10 px-4 py-1 text-gray-500">{dar.category.name}</p>
                 </div>
-                <p className="p-medium-16 p-medium-18 text-gray-500">{formatDateTime(dar.freeDateTime).dateTime}</p>
                 <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">{dar.title}</p>
                 <div className="flex-between w-full">
                     <p className="p-medium-14 md:p-medium-16 text-gray-600">{dar.user.firstName} {dar.user.lastName}</p>

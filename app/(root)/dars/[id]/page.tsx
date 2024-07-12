@@ -1,6 +1,5 @@
 import Collection from "@/components/shared/collection";
 import { getDarById, getRelatedDarsByCategory } from "@/lib/actions/dar.actions";
-import { formatDateTime } from "@/lib/utils";
 import { SearchParamProps } from "@/types";
 import Image from "next/image";
 
@@ -54,12 +53,6 @@ const DarDetails = async ({ params: { id }, searchParams }: SearchParamProps ) =
                 width={32}
                 height={32}
               />
-              <div>
-                <p>{formatDateTime(dar.formatDateTime).dateOnly}</p>
-                <p className="ml-1">
-                  {formatDateTime(dar.formatDateTime).timeOnly}
-                </p>
-              </div>
             </div>
             <div className="p-regular-20 flex items-center gap-3">
               <Image

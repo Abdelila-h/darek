@@ -18,8 +18,6 @@ export const darDefaultValues = {
     description: '',
     location: '',
     imageUrl: '',
-    startDateTime: new Date(),
-    endDateTime: new Date(),
     categoryId: '',
     price: '',
     url: '',
