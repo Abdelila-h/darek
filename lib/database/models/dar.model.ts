@@ -9,6 +9,7 @@ export interface IDar extends Document {
   imageUrl: string;
   price: string;
   url?: string;
+  createdAt: Date;
   category: { _id: string, name: string }
   user: { _id: string, firstName: string, lastName: string, clerkId: string }
 }
@@ -19,6 +20,7 @@ const DarSchema = new Schema({
   location: { type: String },
   imageUrl: { type: String },
   price: { type: String },
+  createdAt: {type: Date},
   url: { type: String },
   category: { type: Schema.Types.ObjectId, ref: 'Category', set: (v: string) => new mongoose.Types.ObjectId(v)},
   user: { type: Schema.Types.ObjectId, ref: 'User' },
